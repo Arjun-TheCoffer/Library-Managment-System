@@ -1,6 +1,7 @@
 package librarysystem.panels;
 
 import java.awt.Color;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import javax.swing.JList;
@@ -37,7 +38,7 @@ public class MenuList extends JPanel {
 		options.put("All Member Id", "ADMIN");
 
 		String[] items = getMenuList(access);
-
+		System.out.println("items = " + Arrays.toString(items));
 		menuList = new JList(items);
 		menuList.setSelectedIndex(0);
 		menuList.addListSelectionListener(event -> {

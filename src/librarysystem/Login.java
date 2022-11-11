@@ -112,6 +112,7 @@ public class Login extends JFrame {
 						User user = new SystemController().login(userName, password);
 						if (user != null) {
 							authorization += user.getAuthorization();
+							System.out.println("data " + authorization);
 							new SecondForm(authorization).setVisible(true);
 							dispose();
 						} else {
