@@ -1,3 +1,4 @@
+/*
 package librarysystem.panels;
 
 import java.util.ArrayList;
@@ -15,9 +16,11 @@ import dataaccess.DataAccessFacade;
 public class AllMemberId extends JPanel {
 	JTable jt;
 
-	/**
+	*/
+/**
 	 * Create the panel.
-	 */
+	 *//*
+
 	public AllMemberId() {
 		display();
 	}
@@ -35,3 +38,4 @@ public class AllMemberId extends JPanel {
 		add(new JScrollPane(jt));
 	}
 }
+*/

@@ -22,10 +22,12 @@ public class SystemController implements ControllerInterface {
 		members = new DataAccessFacade().readMemberMap();
 		List<String[]> table = new ArrayList<>();
 
-		for (String k : members.keySet()) {
-			String[] row = { members.get(k).getMemberId(), members.get(k).getFirstName(),
-					members.get(k).getLastName() };
-			table.add(row);
+		if(members!=null) {
+			for (String k : members.keySet()) {
+				String[] row = {members.get(k).getMemberId(), members.get(k).getFirstName(),
+						members.get(k).getLastName()};
+				table.add(row);
+			}
 		}
 		return table;
 	}
@@ -110,24 +112,5 @@ public class SystemController implements ControllerInterface {
 	public void updateBook(Book book) {
 		DataAccessFacade daf = new DataAccessFacade();
 		daf.updateBook(book);
-	}
-
-	@Override
-	public boolean checkoutBook(Book checkBook, LibraryMember member, HashMap<String, LibraryMember> libMembers, DataAccessFacade da, HashMap<String, Book> books) {
-		boolean flag = false;
-		BookCopy[] bc = checkBook.getCopies();
-		for(int i = 0; i < bc.length; i++) {
-			if(bc[i].isAvailable()) {
-				flag = true;
-				LocalDate checkDate = LocalDate.now();
-				LocalDate dueDate = checkDate.plusDays(checkBook.getMaxCheckoutLength());
-				member.addCheckout(new CheckoutRecordEntry(checkBook, bc[i].getCopyNum(),  checkDate, dueDate));
-				bc[i].changeAvailability();
-				da.saveMembersMap(libMembers);
-				da.saveBooksMap(books);
-				return true;
-			}
-		}
-		return false;
 	}
 }

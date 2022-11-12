@@ -1,21 +1,16 @@
 package librarysystem.panels;
 
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.HashMap;
-
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
-
 import business.Book;
 import business.LibraryMember;
 import business.SystemController;
 import dataaccess.DataAccessFacade;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.HashMap;
 
 public class CheckoutBook extends JPanel {
 
@@ -103,18 +98,9 @@ public class CheckoutBook extends JPanel {
 							JOptionPane.showMessageDialog(CheckoutBook.this, "Book not found", "SUCESS",
 									JOptionPane.PLAIN_MESSAGE);
 						} else {
-							boolean flag = new SystemController().checkoutBook(checkBook, member, libMembers, da,
-									books);
-							if (!flag) {
-								System.out.println("No copies of book available");
-								JOptionPane.showMessageDialog(CheckoutBook.this, "No copies of book available",
-										"SUCESS", JOptionPane.PLAIN_MESSAGE);
-							} else {
-								JOptionPane.showMessageDialog(CheckoutBook.this, "Checkout Book Sucessful", "SUCESS",
-										JOptionPane.PLAIN_MESSAGE);
-								memberId.setText("");
-								ISBN.setText("");
-							}
+
+//							TODO implement code
+
 						}
 					}
 				}

@@ -14,9 +14,5 @@ public class CheckoutRecord implements Serializable{
 	public void setEntries(List<CheckoutRecordEntry> entries) {
 		this.entries = entries;
 	}
-	
-	public void addRecord(CheckoutRecordEntry ch) {
-		if(entries == null) entries = new ArrayList<>();
-		entries.add(ch);
-	}
+
 }

@@ -14,7 +14,7 @@ public class Content extends JPanel {
 	private SearchMember searchMember;
 	private AddBookCopy addBookCopy;
 	private AllBookId allBookId;
-	private AllMemberId allMemberId;
+//	private AllMemberId allMemberId;
 	private CheckoutBook checkoutBook;
 	private boolean flag;
 
@@ -28,7 +28,7 @@ public class Content extends JPanel {
 		searchMember = new SearchMember();
 		addBookCopy = new AddBookCopy();
 		allBookId = new AllBookId();
-		allMemberId = new AllMemberId();
+//		allMemberId = new AllMemberId();
 		checkoutBook = new CheckoutBook();
 
 		setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(170, 121, 65), new Color(170, 121, 65),
@@ -48,8 +48,8 @@ public class Content extends JPanel {
 		add(checkoutBook);
 		allBookId.setVisible(false);
 		add(allBookId);
-		allMemberId.setVisible(false);
-		add(allMemberId);
+//		allMemberId.setVisible(false);
+//		add(allMemberId);
 
 		if (auth.equals("ADMIN"))
 			this.addLayout("Add Member");
@@ -90,15 +90,7 @@ public class Content extends JPanel {
 			allBookId.display();
 			allBookId.setVisible(true);
 			break;
-		case "All Member Id":
-			prev = allMemberId;
-			allMemberId.removeAll();
-			allMemberId.revalidate();
-			allMemberId.repaint();
-			allMemberId.display();
-			allMemberId.setVisible(true);
 
-			break;
 		case "Checkout Book":
 			prev = checkoutBook;
 			checkoutBook.setVisible(true);

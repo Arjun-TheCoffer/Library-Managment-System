@@ -24,11 +24,6 @@ final public class LibraryMember extends Person implements Serializable {
 
 	private static final long serialVersionUID = -2226197306790714013L;
 	
-	public void addCheckout(CheckoutRecordEntry ch) {
-		if(checkoutRecord == null) checkoutRecord = new CheckoutRecord();
-		checkoutRecord.addRecord(ch);
-	}
-	
 	public CheckoutRecord getCheckoutRecord() {
 		return checkoutRecord;
 	}
