@@ -50,15 +50,15 @@ public class MenuList extends JPanel {
 
 	public String[] getMenuList(String access) {
 		if (access.equals("LIBRARIAN")) {
-			String[] items = { "Checkout Book", "Search Member", "Search Book", "All Book Id",
+			String[] items = { "Checkout Book", "Search Member", "Search Book", "All Book Id", "All Member Id",
 					"Logout" };
 			return items;
 		} else if (access.equals("ADMIN")) {
-			String[] items = { "Add Member", "Add Book", "Add Book Copy", "All Book Id", "Logout" };
+			String[] items = { "Add Member", "Add Book", "Add Book Copy", "All Book Id", "All Member Id", "Logout" };
 			return items;
 		} else {
 			String[] items = { "Checkout Book", "Search Member", "Search Book", "Add Member", "Add Book",
-					"Add Book Copy", "All Book Id", "Logout" };
+					"Add Book Copy", "All Book Id", "All Member Id", "Logout" };
 			return items;
 		}
 	}

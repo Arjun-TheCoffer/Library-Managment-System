@@ -14,5 +14,4 @@ public class CheckoutRecord implements Serializable{
 	public void setEntries(List<CheckoutRecordEntry> entries) {
 		this.entries = entries;
 	}
-
 }

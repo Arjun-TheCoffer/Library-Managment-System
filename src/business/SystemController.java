@@ -22,12 +22,10 @@ public class SystemController implements ControllerInterface {
 		members = new DataAccessFacade().readMemberMap();
 		List<String[]> table = new ArrayList<>();
 
-		if(members!=null) {
-			for (String k : members.keySet()) {
-				String[] row = {members.get(k).getMemberId(), members.get(k).getFirstName(),
-						members.get(k).getLastName()};
-				table.add(row);
-			}
+		for (String k : members.keySet()) {
+			String[] row = { members.get(k).getMemberId(), members.get(k).getFirstName(),
+					members.get(k).getLastName() };
+			table.add(row);
 		}
 		return table;
 	}
@@ -112,5 +110,11 @@ public class SystemController implements ControllerInterface {
 	public void updateBook(Book book) {
 		DataAccessFacade daf = new DataAccessFacade();
 		daf.updateBook(book);
+	}
+
+	@Override
+	public boolean checkoutBook(Book checkBook, LibraryMember member, HashMap<String, LibraryMember> libMembers, DataAccessFacade da, HashMap<String, Book> books) {
+
+		return false;
 	}
 }

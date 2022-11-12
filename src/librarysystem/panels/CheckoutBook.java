@@ -81,28 +81,10 @@ public class CheckoutBook extends JPanel {
 							JOptionPane.ERROR_MESSAGE);
 				} else {
 
-//					TODO implement code
-					DataAccessFacade da = new DataAccessFacade();
-					HashMap<String, LibraryMember> libMembers = da.readMemberMap();
-					HashMap<String, Book> books = da.readBooksMap();
-					LibraryMember member = libMembers.get(membId);
-
-					Book checkBook = books.get(isbn);
-					if (member == null) {
-						System.out.println("Library member not found");
-						JOptionPane.showMessageDialog(CheckoutBook.this, "Library member not found", "SUCESS",
-								JOptionPane.PLAIN_MESSAGE);
-					} else {
-						if (checkBook == null) {
-							System.out.println("Book not found");
-							JOptionPane.showMessageDialog(CheckoutBook.this, "Book not found", "SUCESS",
+					JOptionPane.showMessageDialog(CheckoutBook.this, "Not Implement", "Implement soon!!!!!",
 									JOptionPane.PLAIN_MESSAGE);
-						} else {
 
-//							TODO implement code
-
-						}
-					}
+//					TODO implement code
 				}
 
 			}
