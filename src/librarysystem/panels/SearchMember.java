@@ -72,34 +72,8 @@ public class SearchMember extends JPanel {
 							JOptionPane.ERROR_MESSAGE);
 				} else {
 
-					LibraryMember library = new SystemController().searchMember(membId);
-					if (library == null) {
-						JOptionPane.showMessageDialog(SearchMember.this, "Member Not Found", "ERROR",
-								JOptionPane.ERROR_MESSAGE);
-					} else {
-						CheckoutRecord cr = library.getCheckoutRecord();
-
-						if (cr == null)
-							JOptionPane.showMessageDialog(SearchMember.this, "No checkout records found", "SUCCESS",
-									JOptionPane.PLAIN_MESSAGE);
-						else {
-							List<CheckoutRecordEntry> entries = cr.getEntries();
-							if (entries == null) {
-								JOptionPane.showMessageDialog(SearchMember.this, "No checkout records found", "SUCCESS",
-										JOptionPane.PLAIN_MESSAGE);
-							} else {
-								String msg = "";
-								for (CheckoutRecordEntry entry : entries) {
-									System.out.println(entry);
-									msg += entry + "\n";
-
-								}
-								JOptionPane.showMessageDialog(SearchMember.this, msg, "SUCCESS",
-										JOptionPane.PLAIN_MESSAGE);
-							}
-						}
-						memberId.setText("");
-					}
+					JOptionPane.showMessageDialog(SearchMember.this, "Not Implement", "Implement soon!!!!!",
+							JOptionPane.PLAIN_MESSAGE);
 
 				}
 
