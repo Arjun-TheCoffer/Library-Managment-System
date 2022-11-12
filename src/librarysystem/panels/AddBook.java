@@ -52,6 +52,11 @@ public class AddBook extends JPanel {
 	private JTextField textLastName;
 	private JTextField authorPhone;
 
+	private JTextField stateJText;
+	private JTextField streetJText;
+	private JTextField cityJText;
+	private JTextField zipJText;
+
 	public AddBook() {
 		init();
 	}
@@ -110,7 +115,7 @@ public class AddBook extends JPanel {
 
 		JButton addBookBtn = new JButton("ADD BOOK");
 		addBookBtn.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		addBookBtn.setBounds(202, 308, 209, 29);
+		addBookBtn.setBounds(502, 490, 209, 29);
 		addBookBtn.addActionListener(addBookListener());
 		this.add(addBookBtn);
 
@@ -134,63 +139,126 @@ public class AddBook extends JPanel {
 		this.add(authorPhone);
 		authorPhone.setColumns(10);
 
+
+		JLabel streetJLabel = new JLabel("Street\r\n");
+		streetJLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		streetJLabel.setBounds(54, 316, 128, 26);
+		this.add(streetJLabel);
+
+		streetJText = new JTextField();
+		streetJText.setBounds(202, 312, 247, 34);
+		this.add(streetJText);
+		streetJText.setColumns(10);
+
+
+//		TODO
+		JLabel cityJLabel = new JLabel("City\r\n");
+		cityJLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		cityJLabel.setBounds(54, 370, 128, 26);
+		this.add(cityJLabel);
+
+		cityJText = new JTextField();
+		cityJText.setBounds(202, 370, 247, 34);
+		this.add(cityJText);
+		cityJText.setColumns(10);
+
+
+		JLabel state = new JLabel("State\r\n");
+		state.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		state.setBounds(54, 428, 128, 26);
+		this.add(state);
+
+		stateJText = new JTextField();
+		stateJText.setBounds(202, 428, 247, 34);
+		this.add(stateJText);
+		stateJText.setColumns(10);
+
+
+		JLabel zipJLabel = new JLabel("Zip\r\n");
+		zipJLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		zipJLabel.setBounds(54, 486, 128, 26);
+		this.add(zipJLabel);
+
+		zipJText = new JTextField();
+		zipJText.setBounds(202, 486, 247, 34);
+		this.add(zipJText);
+		zipJText.setColumns(10);
+
 	}
 
 	public ActionListener addBookListener() {
-		ActionListener addBookListener = new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String bookIsbn = isbn.getText();
-				String bookAuthorFirstName = authorFirstName.getText();
-				String bookAuthorLastName = textLastName.getText();
-				String authorPhoneNumber = authorPhone.getText();
-				String bookTitle = title.getText();
-				String checkoutLengthData = checkoutLength.getText();
+		ActionListener addBookListener = e -> {
+			String bookIsbn = isbn.getText();
+			String bookAuthorFirstName = authorFirstName.getText();
+			String bookAuthorLastName = textLastName.getText();
+			String authorPhoneNumber = authorPhone.getText();
+			String bookTitle = title.getText();
+			String checkoutLengthData = checkoutLength.getText();
 
-				if (bookIsbn.isEmpty()) {
-					JOptionPane.showMessageDialog(AddBook.this, "ISBN cannot be empty!!!", "Error",
-							JOptionPane.ERROR_MESSAGE);
-				} else if (bookAuthorFirstName.isEmpty()) {
-					JOptionPane.showMessageDialog(AddBook.this, "Title cannot be empty!!!", "Error",
-							JOptionPane.ERROR_MESSAGE);
-				} else if (bookAuthorLastName.isEmpty()) {
-					JOptionPane.showMessageDialog(AddBook.this, "Last Name cannot be empty!!!", "Error",
-							JOptionPane.ERROR_MESSAGE);
-				} else if (authorPhoneNumber.isEmpty()) {
-					JOptionPane.showMessageDialog(AddBook.this, "Phone Number cannot be empty!!!", "Error",
-							JOptionPane.ERROR_MESSAGE);
-				} else if (bookTitle.isEmpty()) {
-					JOptionPane.showMessageDialog(AddBook.this, "Title cannot be empty!!!", "Error",
-							JOptionPane.ERROR_MESSAGE);
-				} else if (checkoutLengthData.isEmpty()) {
-					JOptionPane.showMessageDialog(AddBook.this, "Checkout Length cannot be empty!!!", "Error",
-							JOptionPane.ERROR_MESSAGE);
-				} else {
-					int bookCheckoutLength = 0;
+			String zipString = zipJText.getText();
+			String streetString = streetJText.getText();
+			String cityString = cityJText.getText();
+			String stateString = stateJText.getText();
 
-					try {
-						bookCheckoutLength = Integer.parseInt(checkoutLengthData);
 
-						Address address = new Address("101 S. Main", "Fairfield", "IA", "52556");
-						Author author = new Author(bookAuthorFirstName, bookAuthorLastName, authorPhoneNumber, address,
-								"He is Good.");
-						Book book = new Book(bookIsbn, bookTitle, bookCheckoutLength, List.of(author));
-						sc.addBook(bookIsbn, bookTitle, bookCheckoutLength, List.of(author));
+			if (bookIsbn.isEmpty()) {
+				JOptionPane.showMessageDialog(AddBook.this, "ISBN cannot be empty!!!", "Error",
+						JOptionPane.ERROR_MESSAGE);
+			} else if (bookAuthorFirstName.isEmpty()) {
+				JOptionPane.showMessageDialog(AddBook.this, "Title cannot be empty!!!", "Error",
+						JOptionPane.ERROR_MESSAGE);
+			} else if (bookAuthorLastName.isEmpty()) {
+				JOptionPane.showMessageDialog(AddBook.this, "Last Name cannot be empty!!!", "Error",
+						JOptionPane.ERROR_MESSAGE);
+			} else if (authorPhoneNumber.isEmpty()) {
+				JOptionPane.showMessageDialog(AddBook.this, "Phone Number cannot be empty!!!", "Error",
+						JOptionPane.ERROR_MESSAGE);
+			} else if (bookTitle.isEmpty()) {
+				JOptionPane.showMessageDialog(AddBook.this, "Title cannot be empty!!!", "Error",
+						JOptionPane.ERROR_MESSAGE);
+			} else if (streetString.isEmpty()) {
+				JOptionPane.showMessageDialog(AddBook.this, "Street cannot be empty!!!", "Error",
+						JOptionPane.ERROR_MESSAGE);
+			} else if (cityString.isEmpty()) {
+				JOptionPane.showMessageDialog(AddBook.this, "City cannot be empty!!!", "Error",
+						JOptionPane.ERROR_MESSAGE);
+			}  else if (stateString.isEmpty()) {
+				JOptionPane.showMessageDialog(AddBook.this, "State cannot be empty!!!", "Error",
+						JOptionPane.ERROR_MESSAGE);
+			}  else if (zipString.isEmpty()) {
+				JOptionPane.showMessageDialog(AddBook.this, "Zip cannot be empty!!!", "Error",
+						JOptionPane.ERROR_MESSAGE);
+			}  else {
+				int bookCheckoutLength = 0;
 
-						isbn.setText("");
-						authorFirstName.setText("");
-						textLastName.setText("");
-						authorPhone.setText("");
-						title.setText("");
-						checkoutLength.setText("");
-						JOptionPane.showMessageDialog(AddBook.this, "Book Added", "SUCESS", JOptionPane.PLAIN_MESSAGE);
-					} catch (NumberFormatException err) {
-						JOptionPane.showMessageDialog(AddBook.this, "Checkout Length must be number!!!", "Error",
-								JOptionPane.ERROR_MESSAGE);
+				try {
+					bookCheckoutLength = Integer.parseInt(checkoutLengthData);
 
-					} catch (LibrarySystemException e1) {
-						JOptionPane.showMessageDialog(AddBook.this, "Isbn Already Exist!!!", "Error",
-								JOptionPane.ERROR_MESSAGE);
-					}
+					Address address = new Address(streetString, cityString, stateString, zipString);
+					Author author = new Author(bookAuthorFirstName, bookAuthorLastName, authorPhoneNumber, address,
+							"He is Good.");
+					Book book = new Book(bookIsbn, bookTitle, bookCheckoutLength, List.of(author));
+					sc.addBook(bookIsbn, bookTitle, bookCheckoutLength, List.of(author));
+
+					isbn.setText("");
+					authorFirstName.setText("");
+					textLastName.setText("");
+					authorPhone.setText("");
+					title.setText("");
+					checkoutLength.setText("");
+					stateJText.setText("");
+					cityJText.setText("");
+					stateJText.setText("");
+					zipJText.setText("");
+					streetJText.setText("");
+					JOptionPane.showMessageDialog(AddBook.this, "Book Added", "SUCESS", JOptionPane.PLAIN_MESSAGE);
+				} catch (NumberFormatException err) {
+					JOptionPane.showMessageDialog(AddBook.this, "Checkout Length must be number!!!", "Error",
+							JOptionPane.ERROR_MESSAGE);
+
+				} catch (LibrarySystemException e1) {
+					JOptionPane.showMessageDialog(AddBook.this, "Isbn Already Exist!!!", "Error",
+							JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		};
