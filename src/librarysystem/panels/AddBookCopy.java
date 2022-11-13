@@ -1,18 +1,12 @@
 package librarysystem.panels;
 
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
-
 import business.Book;
 import business.SystemController;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class AddBookCopy extends JPanel {
 	private JTextField isbn;
@@ -53,33 +47,25 @@ public class AddBookCopy extends JPanel {
 	}
 
 	public ActionListener addBookCopyListener() {
-		ActionListener addBookCopyListener = new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String iSbn = isbn.getText();
+		ActionListener addBookCopyListener = e -> {
+			String isbnString = isbn.getText();
 
-				if (iSbn.isEmpty()) {
-					JOptionPane.showMessageDialog(AddBookCopy.this, "ISBN cannot be empty!!!", "Error",
+			boolean isBookCopyAdded = SystemController.INSTANCE.validateAddBookCopy(isbnString);
+			if (isBookCopyAdded){
+				SystemController sc = new SystemController();
+				Book book = sc.searchBook(isbnString);
+				if (book == null) {
+					JOptionPane.showMessageDialog(AddBookCopy.this, "Book not found!!!", "Error",
 							JOptionPane.ERROR_MESSAGE);
 				} else {
-					SystemController sc = new SystemController();
-					Book book = sc.searchBook(iSbn);
-					if (book == null) {
-						JOptionPane.showMessageDialog(AddBookCopy.this, "Book not found!!!", "Error",
-								JOptionPane.ERROR_MESSAGE);
-					} else {
-						book.addCopy();
-						sc.updateBook(book);
-						JOptionPane.showMessageDialog(AddBookCopy.this, "Book Copy Added", "SUCESS",
-								JOptionPane.PLAIN_MESSAGE);
-						isbn.setText("");
-					}
+					book.addCopy();
+					sc.updateBook(book);
+					JOptionPane.showMessageDialog(AddBookCopy.this, "Book Copy Added", "SUCCESS",
+							JOptionPane.PLAIN_MESSAGE);
+					isbn.setText("");
 				}
 			}
 		};
 		return addBookCopyListener;
-	}
-
-	public void addBookCopy(String isbn) {
-
 	}
 }

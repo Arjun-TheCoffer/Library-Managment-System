@@ -139,62 +139,39 @@ public class AddMember extends JPanel {
 	}
 
 	public ActionListener addLibraryMemberListener() {
-		ActionListener addMemberListener = new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String membId = memberId.getText();
-				String memberFirstName = firstName.getText();
-				String memberLastName = lastName.getText();
-				String telephone = phoneNumber.getText();
-				String memberStreet = street.getText();
-				String memberCity = city.getText();
-				String memberState = state.getText();
-				String memberZip = zip.getText();
-				if (membId.isEmpty()) {
-					JOptionPane.showMessageDialog(AddMember.this, "Id cannot be empty!!!", "Error",
-							JOptionPane.ERROR_MESSAGE);
-				} else if (memberFirstName.isEmpty()) {
-					JOptionPane.showMessageDialog(AddMember.this, "First Name cannot be empty!!!", "Error",
-							JOptionPane.ERROR_MESSAGE);
-				} else if (memberLastName.isEmpty()) {
-					JOptionPane.showMessageDialog(AddMember.this, "Last Name cannot be empty!!!", "Error",
-							JOptionPane.ERROR_MESSAGE);
-				} else if (telephone.isEmpty()) {
-					JOptionPane.showMessageDialog(AddMember.this, "Phone Number cannot be empty!!!", "Error",
-							JOptionPane.ERROR_MESSAGE);
-				} else if (memberStreet.isEmpty()) {
-					JOptionPane.showMessageDialog(AddMember.this, "Street cannot be empty!!!", "Error",
-							JOptionPane.ERROR_MESSAGE);
-				} else if (memberCity.isEmpty()) {
-					JOptionPane.showMessageDialog(AddMember.this, "City cannot be empty!!!", "Error",
-							JOptionPane.ERROR_MESSAGE);
-				} else if (memberState.isEmpty()) {
-					JOptionPane.showMessageDialog(AddMember.this, "State cannot be empty!!!", "Error",
-							JOptionPane.ERROR_MESSAGE);
-				} else if (memberZip.isEmpty()) {
-					JOptionPane.showMessageDialog(AddMember.this, "Zip cannot be empty!!!", "Error",
-							JOptionPane.ERROR_MESSAGE);
-				} else {
+		ActionListener addMemberListener = e -> {
+			String membId = memberId.getText();
+			String memberFirstName = firstName.getText();
+			String memberLastName = lastName.getText();
+			String telephone = phoneNumber.getText();
+			String memberStreet = street.getText();
+			String memberCity = city.getText();
+			String memberState = state.getText();
+			String memberZip = zip.getText();
 
-					try {
-						controllerInterface.addMember(membId, memberFirstName, memberLastName, telephone, memberStreet,
-								memberCity, memberState, memberZip);
-						JOptionPane.showMessageDialog(AddMember.this, "Library Member Added", "SUCESS",
-								JOptionPane.PLAIN_MESSAGE);
-						memberId.setText("");
-						firstName.setText("");
-						lastName.setText("");
-						phoneNumber.setText("");
-						street.setText("");
-						city.setText("");
-						state.setText("");
-						zip.setText("");
-					} catch (LibrarySystemException e1) {
-						// TODO Auto-generated catch block
-						JOptionPane.showMessageDialog(AddMember.this, "Library Member with Id already Exist!!!",
-								"Error", JOptionPane.ERROR_MESSAGE);
-					}
+			boolean isMemberAdded = SystemController.INSTANCE.validateAddLibrayMember(membId,memberFirstName,memberLastName,
+					telephone,memberStreet,memberCity,memberState,memberZip);
+			if (isMemberAdded){
 
+				try {
+					controllerInterface.addMember(membId, memberFirstName, memberLastName, telephone, memberStreet,
+							memberCity, memberState, memberZip);
+					JOptionPane.showMessageDialog(AddMember.this, "Library Member Added", "SUCESS",
+							JOptionPane.PLAIN_MESSAGE);
+					memberId.setText("");
+					firstName.setText("");
+					lastName.setText("");
+					phoneNumber.setText("");
+					street.setText("");
+					city.setText("");
+					state.setText("");
+					zip.setText("");
+				} catch (LibrarySystemException e1) {
+
+					JOptionPane.showMessageDialog(AddMember.this, "Library Member with Id already Exist!!!",
+							"Error", JOptionPane.ERROR_MESSAGE);
 				}
+
 			}
 		};
 		return addMemberListener;

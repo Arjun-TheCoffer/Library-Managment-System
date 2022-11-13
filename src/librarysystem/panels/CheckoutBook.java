@@ -1,7 +1,6 @@
 package librarysystem.panels;
 
 import java.awt.Font;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 
@@ -73,53 +72,44 @@ public class CheckoutBook extends JPanel {
 	}
 
 	public ActionListener addLibraryMemberListener() {
-		ActionListener addMemberListener = new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String membId = memberId.getText();
-				String isbn = ISBN.getText();
+		ActionListener addMemberListener = e -> {
+			String membId = memberId.getText();
+			String isbn = ISBN.getText();
 
-				if (membId.isEmpty()) {
-					JOptionPane.showMessageDialog(CheckoutBook.this, "Member Id cannot be empty!!!", "Error",
-							JOptionPane.ERROR_MESSAGE);
-				} else if (isbn.isEmpty()) {
-					JOptionPane.showMessageDialog(CheckoutBook.this, "ISBN Field cannot be empty!!!", "Error",
-							JOptionPane.ERROR_MESSAGE);
+			boolean isBookCheckout = SystemController.INSTANCE.validateCheckoutBook(membId,isbn);
+			if (isBookCheckout){
+
+				DataAccessFacade da = new DataAccessFacade();
+				HashMap<String, LibraryMember> libMembers = da.readMemberMap();
+				HashMap<String, Book> books = da.readBooksMap();
+				LibraryMember member = libMembers.get(membId);
+
+				Book checkBook = books.get(isbn);
+				if (member == null) {
+					System.out.println("Library member not found");
+					JOptionPane.showMessageDialog(CheckoutBook.this, "Library member not found", "SUCESS",
+							JOptionPane.PLAIN_MESSAGE);
 				} else {
-
-//					TODO implement code
-					DataAccessFacade da = new DataAccessFacade();
-					HashMap<String, LibraryMember> libMembers = da.readMemberMap();
-					HashMap<String, Book> books = da.readBooksMap();
-					LibraryMember member = libMembers.get(membId);
-
-					Book checkBook = books.get(isbn);
-					if (member == null) {
-						System.out.println("Library member not found");
-						JOptionPane.showMessageDialog(CheckoutBook.this, "Library member not found", "SUCESS",
+					if (checkBook == null) {
+						System.out.println("Book not found");
+						JOptionPane.showMessageDialog(CheckoutBook.this, "Book not found", "SUCESS",
 								JOptionPane.PLAIN_MESSAGE);
 					} else {
-						if (checkBook == null) {
-							System.out.println("Book not found");
-							JOptionPane.showMessageDialog(CheckoutBook.this, "Book not found", "SUCESS",
-									JOptionPane.PLAIN_MESSAGE);
+						boolean flag = new SystemController().checkoutBook(checkBook, member, libMembers, da,books);
+						if (!flag) {
+							System.out.println("No copies of book available");
+							JOptionPane.showMessageDialog(CheckoutBook.this, "No copies of book available",
+									"SUCCESS", JOptionPane.PLAIN_MESSAGE);
 						} else {
-							boolean flag = new SystemController().checkoutBook(checkBook, member, libMembers, da,
-									books);
-							if (!flag) {
-								System.out.println("No copies of book available");
-								JOptionPane.showMessageDialog(CheckoutBook.this, "No copies of book available",
-										"SUCESS", JOptionPane.PLAIN_MESSAGE);
-							} else {
-								JOptionPane.showMessageDialog(CheckoutBook.this, "Checkout Book Sucessful", "SUCESS",
-										JOptionPane.PLAIN_MESSAGE);
-								memberId.setText("");
-								ISBN.setText("");
-							}
+							JOptionPane.showMessageDialog(CheckoutBook.this, "Checkout Book Successful", "SUCESS",
+									JOptionPane.PLAIN_MESSAGE);
+							memberId.setText("");
+							ISBN.setText("");
 						}
 					}
 				}
-
 			}
+
 		};
 		return addMemberListener;
 	}

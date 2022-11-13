@@ -7,15 +7,38 @@ import dataaccess.DataAccessFacade;
 import dataaccess.User;
 
 public interface ControllerInterface {
-	public User login(String id, String password) throws LoginException;
-	public List<String[]> allMemberIds();
-	public List<String[]> allBookIds();
-	public void addBook(String isbn, String title, int maxCheckoutLength, List<Author> authors) throws LibrarySystemException;
-	
-	public Book searchBook(String isbn);
+    User login(String id, String password) throws LoginException;
 
-	LibraryMember searchMember(String memberId);
-	public void updateBook(Book book);
-	 public void addMember(String id, String firstName, String lastName, String cell, String street, String city, String state, String zip) throws LibrarySystemException;
-	public boolean checkoutBook(Book checkBook, LibraryMember member, HashMap<String, LibraryMember> libMembers, DataAccessFacade da, HashMap<String, Book> books);
+    List<String[]> allMemberIds();
+
+    List<String[]> allBookIds();
+
+    void addBook(String isbn, String title, int maxCheckoutLength, List<Author> authors) throws LibrarySystemException;
+
+    Book searchBook(String isbn);
+
+    LibraryMember searchMember(String memberId);
+
+    void updateBook(Book book);
+
+    void addMember(String id, String firstName, String lastName, String cell, String street, String city, String state, String zip) throws LibrarySystemException;
+
+    boolean checkoutBook(Book checkBook, LibraryMember member, HashMap<String, LibraryMember> libMembers, DataAccessFacade da, HashMap<String, Book> books);
+
+    boolean validateAddBook(String bookIsbn, String bookAuthorFirstName, String bookAuthorLastName, String authorPhoneNumber, String bookTitle,
+                            String checkoutLengthData, String zipString, String streetString, String cityString, String stateString);
+
+    boolean validateCheckoutBook(String memberId, String ISBN);
+
+    boolean validateLogin(String userName, String password);
+
+    boolean validateSearchMember(String memberID);
+
+    boolean validateSearchBook(String bookID);
+
+    boolean validateAddLibrayMember(String membId, String memberFirstName, String memberLastName, String telephone
+    ,String memberStreet, String memberCity, String memberState, String memberZip);
+
+    boolean validateAddBookCopy(String isbn);
+
 }

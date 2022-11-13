@@ -63,47 +63,43 @@ public class SearchMember extends JPanel {
 	}
 
 	public ActionListener addLibraryMemberListener() {
-		ActionListener addMemberListener = new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String membId = memberId.getText();
+		ActionListener addMemberListener = e -> {
+			String membId = memberId.getText();
 
-				if (membId.isEmpty()) {
-					JOptionPane.showMessageDialog(SearchMember.this, "Member Id cannot be empty!!!", "Error",
+			boolean isSearchMemberId = SystemController.INSTANCE.validateSearchMember(membId);
+			if (isSearchMemberId){
+
+				LibraryMember library = new SystemController().searchMember(membId);
+				if (library == null) {
+					JOptionPane.showMessageDialog(SearchMember.this, "Member Not Found", "ERROR",
 							JOptionPane.ERROR_MESSAGE);
 				} else {
+					CheckoutRecord cr = library.getCheckoutRecord();
 
-					LibraryMember library = new SystemController().searchMember(membId);
-					if (library == null) {
-						JOptionPane.showMessageDialog(SearchMember.this, "Member Not Found", "ERROR",
-								JOptionPane.ERROR_MESSAGE);
-					} else {
-						CheckoutRecord cr = library.getCheckoutRecord();
-
-						if (cr == null)
+					if (cr == null)
+						JOptionPane.showMessageDialog(SearchMember.this, "No checkout records found", "SUCCESS",
+								JOptionPane.PLAIN_MESSAGE);
+					else {
+						List<CheckoutRecordEntry> entries = cr.getEntries();
+						if (entries == null) {
 							JOptionPane.showMessageDialog(SearchMember.this, "No checkout records found", "SUCCESS",
 									JOptionPane.PLAIN_MESSAGE);
-						else {
-							List<CheckoutRecordEntry> entries = cr.getEntries();
-							if (entries == null) {
-								JOptionPane.showMessageDialog(SearchMember.this, "No checkout records found", "SUCCESS",
-										JOptionPane.PLAIN_MESSAGE);
-							} else {
-								String msg = "";
-								for (CheckoutRecordEntry entry : entries) {
-									System.out.println(entry);
-									msg += entry + "\n";
+						} else {
+							String msg = "";
+							for (CheckoutRecordEntry entry : entries) {
+								System.out.println(entry);
+								msg += entry + "\n";
 
-								}
-								JOptionPane.showMessageDialog(SearchMember.this, msg, "SUCCESS",
-										JOptionPane.PLAIN_MESSAGE);
 							}
+							JOptionPane.showMessageDialog(SearchMember.this, msg, "SUCCESS",
+									JOptionPane.PLAIN_MESSAGE);
 						}
-						memberId.setText("");
 					}
-
+					memberId.setText("");
 				}
 
 			}
+
 		};
 		return addMemberListener;
 	}

@@ -55,26 +55,22 @@ public class SearchBook extends JPanel {
 	}
 
 	public ActionListener addLibraryMemberListener() {
-		ActionListener addMemberListener = new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String search = searchBook.getText();
+		ActionListener addMemberListener = e -> {
+			String search = searchBook.getText();
 
-				if (search.isEmpty()) {
-					JOptionPane.showMessageDialog(SearchBook.this, "ISBN ID cannot be empty!!!", "Error",
+			boolean isSearchBook = SystemController.INSTANCE.validateSearchBook(search);
+			if(isSearchBook) {
+
+				Book book = new SystemController().searchBook(search);
+				if (book == null) {
+					JOptionPane.showMessageDialog(SearchBook.this, "Book Not Found", "ERROR",
 							JOptionPane.ERROR_MESSAGE);
 				} else {
-
-					Book book = new SystemController().searchBook(search);
-					if (book == null) {
-						JOptionPane.showMessageDialog(SearchBook.this, "Book Not Found", "ERROR",
-								JOptionPane.ERROR_MESSAGE);
-					} else {
-						JOptionPane.showMessageDialog(SearchBook.this, book, "SUCCESS", JOptionPane.PLAIN_MESSAGE);
-					}
-
+					JOptionPane.showMessageDialog(SearchBook.this, book, "SUCCESS", JOptionPane.PLAIN_MESSAGE);
 				}
 
 			}
+
 		};
 		return addMemberListener;
 	}
