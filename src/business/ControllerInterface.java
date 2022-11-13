@@ -32,7 +32,7 @@ public interface ControllerInterface {
 
     boolean validateLogin(String userName, String password);
 
-    boolean validateSearchMember(String memberID);
+    boolean getCheckOutRecord(String memberID);
 
     boolean validateSearchBook(String bookID);
 

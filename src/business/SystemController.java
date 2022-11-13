@@ -1,7 +1,9 @@
 package business;
 
-import dataaccess.*;
-import librarysystem.panels.CheckoutBook;
+import dataaccess.DataAccess;
+import dataaccess.DataAccessFacade;
+import dataaccess.TestData;
+import dataaccess.User;
 
 import javax.swing.*;
 import java.awt.*;
@@ -181,7 +183,7 @@ public class SystemController extends Component implements ControllerInterface {
             JOptionPane.showMessageDialog(this, "ISBN Field cannot be empty!!!", "Error",
                     JOptionPane.ERROR_MESSAGE);
             return false;
-        }else {
+        } else {
             DataAccessFacade da = new DataAccessFacade();
             HashMap<String, LibraryMember> libMembers = da.readMemberMap();
             HashMap<String, Book> books = da.readBooksMap();
@@ -200,7 +202,7 @@ public class SystemController extends Component implements ControllerInterface {
                             JOptionPane.PLAIN_MESSAGE);
                     return false;
                 } else {
-                    boolean flag = checkoutBook(checkBook, member, libMembers, da,books);
+                    boolean flag = checkoutBook(checkBook, member, libMembers, da, books);
                     if (!flag) {
                         System.out.println("No copies of book available");
                         JOptionPane.showMessageDialog(this, "No copies of book available",
@@ -209,7 +211,7 @@ public class SystemController extends Component implements ControllerInterface {
                     } else {
                         JOptionPane.showMessageDialog(this, "Checkout Book Successful", "SUCESS",
                                 JOptionPane.PLAIN_MESSAGE);
-                       return true;
+                        return true;
                     }
                 }
             }
@@ -231,12 +233,42 @@ public class SystemController extends Component implements ControllerInterface {
     }
 
     @Override
-    public boolean validateSearchMember(String memberID) {
+    public boolean getCheckOutRecord(String memberID) {
         if (memberID.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Member Id cannot be empty!!!", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
+        } else {
+            LibraryMember library = new SystemController().searchMember(memberID);
+            if (library == null) {
+                JOptionPane.showMessageDialog(this, "Member Not Found", "ERROR",
+                        JOptionPane.ERROR_MESSAGE);
+                return false;
+            } else {
+                CheckoutRecord cr = library.getCheckoutRecord();
+
+                if (cr == null) {
+                    JOptionPane.showMessageDialog(this, "No checkout records found", "SUCCESS", JOptionPane.PLAIN_MESSAGE);
+                    return false;
+                } else{
+                    List<CheckoutRecordEntry> entries = cr.getEntries();
+                    if (entries == null) {
+                        JOptionPane.showMessageDialog(this, "No checkout records found", "SUCCESS",
+                                JOptionPane.PLAIN_MESSAGE);
+                        return false;
+                    } else {
+                        String msg = "";
+                        for (CheckoutRecordEntry entry : entries) {
+                            System.out.println(entry);
+                            msg += entry + "\n";
+
+                        }
+                        JOptionPane.showMessageDialog(this, msg, "SUCCESS",
+                                JOptionPane.PLAIN_MESSAGE);
+                        return true;
+                    }
+                }
+            }
         }
-        return true;
     }
 
     @Override
@@ -291,7 +323,7 @@ public class SystemController extends Component implements ControllerInterface {
     @Override
     public boolean validateAddBookCopy(String isbn) {
 
-        if(isbn.isEmpty()){
+        if (isbn.isEmpty()) {
             JOptionPane.showMessageDialog(this, "ISBN cannot be empty!!!", "Error",
                     JOptionPane.ERROR_MESSAGE);
             return false;
