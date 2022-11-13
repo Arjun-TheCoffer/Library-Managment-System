@@ -78,36 +78,8 @@ public class CheckoutBook extends JPanel {
 
 			boolean isBookCheckout = SystemController.INSTANCE.validateCheckoutBook(membId,isbn);
 			if (isBookCheckout){
-
-				DataAccessFacade da = new DataAccessFacade();
-				HashMap<String, LibraryMember> libMembers = da.readMemberMap();
-				HashMap<String, Book> books = da.readBooksMap();
-				LibraryMember member = libMembers.get(membId);
-
-				Book checkBook = books.get(isbn);
-				if (member == null) {
-					System.out.println("Library member not found");
-					JOptionPane.showMessageDialog(CheckoutBook.this, "Library member not found", "SUCESS",
-							JOptionPane.PLAIN_MESSAGE);
-				} else {
-					if (checkBook == null) {
-						System.out.println("Book not found");
-						JOptionPane.showMessageDialog(CheckoutBook.this, "Book not found", "SUCESS",
-								JOptionPane.PLAIN_MESSAGE);
-					} else {
-						boolean flag = new SystemController().checkoutBook(checkBook, member, libMembers, da,books);
-						if (!flag) {
-							System.out.println("No copies of book available");
-							JOptionPane.showMessageDialog(CheckoutBook.this, "No copies of book available",
-									"SUCCESS", JOptionPane.PLAIN_MESSAGE);
-						} else {
-							JOptionPane.showMessageDialog(CheckoutBook.this, "Checkout Book Successful", "SUCESS",
-									JOptionPane.PLAIN_MESSAGE);
-							memberId.setText("");
-							ISBN.setText("");
-						}
-					}
-				}
+				memberId.setText("");
+				ISBN.setText("");
 			}
 
 		};

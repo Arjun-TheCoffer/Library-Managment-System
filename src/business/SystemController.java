@@ -1,6 +1,7 @@
 package business;
 
 import dataaccess.*;
+import librarysystem.panels.CheckoutBook;
 
 import javax.swing.*;
 import java.awt.*;
@@ -180,8 +181,39 @@ public class SystemController extends Component implements ControllerInterface {
             JOptionPane.showMessageDialog(this, "ISBN Field cannot be empty!!!", "Error",
                     JOptionPane.ERROR_MESSAGE);
             return false;
+        }else {
+            DataAccessFacade da = new DataAccessFacade();
+            HashMap<String, LibraryMember> libMembers = da.readMemberMap();
+            HashMap<String, Book> books = da.readBooksMap();
+            LibraryMember member = libMembers.get(memberId);
+
+            Book checkBook = books.get(ISBN);
+            if (member == null) {
+                System.out.println("Library member not found");
+                JOptionPane.showMessageDialog(this, "Library member not found", "SUCESS",
+                        JOptionPane.PLAIN_MESSAGE);
+                return false;
+            } else {
+                if (checkBook == null) {
+                    System.out.println("Book not found");
+                    JOptionPane.showMessageDialog(this, "Book not found", "SUCESS",
+                            JOptionPane.PLAIN_MESSAGE);
+                    return false;
+                } else {
+                    boolean flag = checkoutBook(checkBook, member, libMembers, da,books);
+                    if (!flag) {
+                        System.out.println("No copies of book available");
+                        JOptionPane.showMessageDialog(this, "No copies of book available",
+                                "SUCCESS", JOptionPane.PLAIN_MESSAGE);
+                        return false;
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Checkout Book Successful", "SUCESS",
+                                JOptionPane.PLAIN_MESSAGE);
+                       return true;
+                    }
+                }
+            }
         }
-        return true;
     }
 
     @Override
