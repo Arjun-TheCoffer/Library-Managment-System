@@ -190,7 +190,7 @@ public class AddBook extends JPanel {
 					stateJText.setText("");
 					zipJText.setText("");
 					streetJText.setText("");
-					JOptionPane.showMessageDialog(AddBook.this, "Book Added", "SUCESS", JOptionPane.PLAIN_MESSAGE);
+					JOptionPane.showMessageDialog(AddBook.this, "Book Added", "SUCCESS", JOptionPane.PLAIN_MESSAGE);
 				} catch (NumberFormatException err) {
 					JOptionPane.showMessageDialog(AddBook.this, "Checkout Length must be number!!!", "Error",
 							JOptionPane.ERROR_MESSAGE);

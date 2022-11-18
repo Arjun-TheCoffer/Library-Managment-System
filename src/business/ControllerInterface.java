@@ -32,13 +32,13 @@ public interface ControllerInterface {
 
     boolean validateLogin(String userName, String password);
 
-    boolean getCheckOutRecord(String memberID);
+    boolean addCheckOutRecord(String memberID);
 
-    boolean validateSearchBook(String bookID);
+    boolean addSearchBook(String bookID);
 
     boolean validateAddLibrayMember(String membId, String memberFirstName, String memberLastName, String telephone
     ,String memberStreet, String memberCity, String memberState, String memberZip);
 
-    boolean validateAddBookCopy(String isbn);
+    boolean addBookCopy(String isbn);
 
 }

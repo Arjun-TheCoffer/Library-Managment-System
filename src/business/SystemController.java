@@ -4,6 +4,8 @@ import dataaccess.DataAccess;
 import dataaccess.DataAccessFacade;
 import dataaccess.TestData;
 import dataaccess.User;
+import librarysystem.panels.AddBookCopy;
+import librarysystem.panels.SearchBook;
 
 import javax.swing.*;
 import java.awt.*;
@@ -233,7 +235,7 @@ public class SystemController extends Component implements ControllerInterface {
     }
 
     @Override
-    public boolean getCheckOutRecord(String memberID) {
+    public boolean addCheckOutRecord(String memberID) {
         if (memberID.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Member Id cannot be empty!!!", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
@@ -272,13 +274,22 @@ public class SystemController extends Component implements ControllerInterface {
     }
 
     @Override
-    public boolean validateSearchBook(String bookID) {
+    public boolean addSearchBook(String bookID) {
         if (bookID.isEmpty()) {
             JOptionPane.showMessageDialog(this, "ISBN ID cannot be empty!!!", "Error",
                     JOptionPane.ERROR_MESSAGE);
             return false;
+        }else {
+            Book book = searchBook(bookID);
+            if (book == null) {
+                JOptionPane.showMessageDialog(this, "Book Not Found", "ERROR",
+                        JOptionPane.ERROR_MESSAGE);
+                return false;
+            } else {
+                JOptionPane.showMessageDialog(this, book, "SUCCESS", JOptionPane.PLAIN_MESSAGE);
+                return true;
+            }
         }
-        return true;
     }
 
     @Override
@@ -321,13 +332,26 @@ public class SystemController extends Component implements ControllerInterface {
     }
 
     @Override
-    public boolean validateAddBookCopy(String isbn) {
+    public boolean addBookCopy(String isbn) {
 
         if (isbn.isEmpty()) {
             JOptionPane.showMessageDialog(this, "ISBN cannot be empty!!!", "Error",
                     JOptionPane.ERROR_MESSAGE);
             return false;
+        }else {
+            Book book = searchBook(isbn);
+            if (book == null) {
+                JOptionPane.showMessageDialog(this, "Book not found!!!", "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                return false;
+            } else {
+                book.addCopy();
+                updateBook(book);
+                JOptionPane.showMessageDialog(this, "Book Copy Added", "SUCCESS",
+                        JOptionPane.PLAIN_MESSAGE);
+                return true;
+
+            }
         }
-        return true;
     }
 }

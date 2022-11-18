@@ -50,20 +50,9 @@ public class AddBookCopy extends JPanel {
 		ActionListener addBookCopyListener = e -> {
 			String isbnString = isbn.getText();
 
-			boolean isBookCopyAdded = SystemController.INSTANCE.validateAddBookCopy(isbnString);
+			boolean isBookCopyAdded = SystemController.INSTANCE.addBookCopy(isbnString);
 			if (isBookCopyAdded){
-				SystemController sc = new SystemController();
-				Book book = sc.searchBook(isbnString);
-				if (book == null) {
-					JOptionPane.showMessageDialog(AddBookCopy.this, "Book not found!!!", "Error",
-							JOptionPane.ERROR_MESSAGE);
-				} else {
-					book.addCopy();
-					sc.updateBook(book);
-					JOptionPane.showMessageDialog(AddBookCopy.this, "Book Copy Added", "SUCCESS",
-							JOptionPane.PLAIN_MESSAGE);
 					isbn.setText("");
-				}
 			}
 		};
 		return addBookCopyListener;

@@ -66,7 +66,7 @@ public class SearchMember extends JPanel {
 		ActionListener addMemberListener = e -> {
 			String membId = memberId.getText();
 
-			boolean isSearchMemberId = SystemController.INSTANCE.getCheckOutRecord(membId);
+			boolean isSearchMemberId = SystemController.INSTANCE.addCheckOutRecord(membId);
 			if (isSearchMemberId){
 				memberId.setText("");
 			}

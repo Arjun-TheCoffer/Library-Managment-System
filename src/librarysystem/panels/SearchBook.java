@@ -58,17 +58,9 @@ public class SearchBook extends JPanel {
 		ActionListener addMemberListener = e -> {
 			String search = searchBook.getText();
 
-			boolean isSearchBook = SystemController.INSTANCE.validateSearchBook(search);
+			boolean isSearchBook = SystemController.INSTANCE.addSearchBook(search);
 			if(isSearchBook) {
-
-				Book book = new SystemController().searchBook(search);
-				if (book == null) {
-					JOptionPane.showMessageDialog(SearchBook.this, "Book Not Found", "ERROR",
-							JOptionPane.ERROR_MESSAGE);
-				} else {
-					JOptionPane.showMessageDialog(SearchBook.this, book, "SUCCESS", JOptionPane.PLAIN_MESSAGE);
-				}
-
+				searchBook.setText("");
 			}
 
 		};
